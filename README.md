@@ -78,7 +78,7 @@
 
 <div>
 <img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Github.png" width="80" alt="Git & Github">
-<img src="https://i.imgur.com/2qs0qZt.png" width="80" alt="SSH">
+<img src="https://www.google.com/imgres?q=putty%20logo&imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F7NdNE%2Fbtsph90Ftet%2FAAAAAAAAAAAAAAAAAAAAAPolX6zCriXKH-5f7OHeDYOy4VQkYczPgvm-vSHhieeA%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3DzREhmFAteMHeM9OZ64Aukmm6A8A%253D&imgrefurl=https%3A%2F%2Fpinetreeday.tistory.com%2F227&docid=vUo9sPAuf08OmM&tbnid=4caK_V0t9EXDUM&vet=12ahUKEwjelY_11LuPAxXDYfUHHUvgAZkQM3oECBkQAA..i&w=920&h=742&hcb=2&ved=2ahUKEwjelY_11LuPAxXDYfUHHUvgAZkQM3oECBkQAA" width="80" alt="SSH">
 <img src="https://i.imgur.com/nLd2gM5.png" width="80" alt="NPM">
 </div>
 
@@ -92,8 +92,6 @@
 ## 🛠️ 프로젝트 아키텍쳐
 
 이 프로젝트는 물리적인 하드웨어 계층부터 외부 클라우드 서비스까지 연결되는 다층 구조(Layered Architecture)를 가집니다. 각 계층은 명확한 역할을 가지며 상호작용합니다.
-
-![no-image](https://user-images.githubusercontent.com/80824750/208294567-738dd273-e137-4bbf-8307-aff64258fe03.png)
 
 - **Layer 1: Hardware Layer**
 
@@ -129,5 +127,4 @@
 
 |              Project Lead & Developer               |
 | :-------------------------------------------------: |
-| ![](https://github.com/your-github-id.png?size=120) |
-|   [Your Name](https://github.com/your-github-id)    |
+
