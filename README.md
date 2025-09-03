@@ -1,2 +1,133 @@
-# capstonemie
-DIY 스마트 미러 프로젝트입니다. 오픈 소스인 MagicMirror 플랫폼을 기반으로, 라즈베리파이 위에 다양한 모듈을 설치하여 개인 맞춤형 정보를 제공하는 거울을 제작합니다.
+<div align="center">
+
+### DIY Smart Mirror Project ✅
+
+</div>
+
+## 📝 소개
+
+저희가 이번에 진행할 프로젝트는 DIY 스마트 미러 프로젝트입니다. 오픈 소스인 MagicMirror 플랫폼을 기반으로, 라즈베리파이 위에 다양한 모듈을 설치하여 개인 맞춤형 정보를 제공하는 거울을 제작합니다.
+
+다음과 같은 핵심 기능들을 구현했습니다.
+
+- 시간, 날짜, 날씨, 미세먼지 등 기본 정보 표시
+- 구글 캘린더 연동을 통한 개인 일정 관리
+- RSS 피드를 활용한 맞춤 뉴스 제공
+- 구글 어시스턴트를 이용한 음성 명령 제어 (유튜브 재생, 정보 검색 등)
+- 구글 포토와 연동한 디지털 액자 기능
+- 터치 또는 센서를 이용한 화면 절전 모드 제어
+
+<br />
+
+### 화면 구성
+
+> 최종적으로 완성된 스마트 미러의 화면 구성 예시입니다.
+
+|                              최종 화면 구성                              |                                                                                                                       주요 기능                                                                                                                        |
+| :----------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://magicmirror.builders/img/screenshot.png" width="400"/> | <ul><li>**상단 좌측**: 시계 및 날짜</li><li>**상단 우측**: 현재 날씨 및 주간 예보</li><li>**중앙**: 미세먼지 정보</li><li>**하단**: 뉴스 헤드라인 (RSS)</li><li>**캘린더**: 구글 캘린더 연동 일정</li><li>**백그라운드**: 구글 포토 연동 사진</li><ul> |
+
+<br />
+
+## 🗂️ APIs
+
+본 프로젝트는 다양한 외부 API를 활용하여 정보를 받아옵니다.
+
+- **[OpenWeatherMap API](https://openweathermap.org/api)**: 현재 날씨 및 예보 데이터를 가져오기 위해 사용됩니다.
+- **[Google Calendar API](https://developers.google.com/calendar/api)**: 개인 구글 캘린더의 일정을 연동하기 위해 사용됩니다.
+- **[Google Assistant API](https://developers.google.com/assistant/sdk)**: 음성 명령 인식 및 처리를 위해 사용됩니다.
+- **[Google Photos Library API](https://developers.google.com/photos/library/reference/rest)**: 구글 포토 앨범의 사진을 디지털 액자 형태로 가져오기 위해 사용됩니다.
+- **[YouTube Data API v3](https://developers.google.com/youtube/v3)**: 음성 명령을 통해 유튜브 영상을 검색하고 재생하기 위해 사용됩니다.
+
+<br />
+
+## ⚙ 기술 스택
+
+본 프로젝트는 임베디드 시스템의 특성을 가지며, 하드웨어부터 외부 서비스까지 여러 기술 계층의 조합으로 구성됩니다.
+
+### Hardware
+
+<div>
+<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/RaspberryPi.png" width="80" alt="Raspberry Pi 4">
+<img src="https://i.imgur.com/OrsAyBC.png" width="80" alt="Touch Display">
+<img src="https://i.imgur.com/t33m0yE.png" width="80" alt="Microphone & Speaker">
+<img src="https://i.imgur.com/Y4o62tG.png" width="80" alt="Half Mirror">
+</div>
+
+- **Raspberry Pi 4**: 프로젝트의 핵심 컴퓨팅 모듈입니다. OS를 구동하고 모든 소프트웨어 로직을 처리합니다.
+- **10.1" Touch Display**: 사용자 인터페이스(UI)를 표시하고, 터치 입력을 통해 화면을 제어하는 역할을 합니다.
+- **USB Microphone & Speaker**: 구글 어시스턴트의 음성 입출력을 담당하는 핵심 주변 장치입니다.
+- **Half Mirror Film & Acrylic**: 디스플레이 화면을 거울처럼 보이게 하는 물리적 핵심 부품입니다.
+- **PIR Sensor / Tact Switch**: 터치가 불가능한 환경에서 화면 절전 모드를 제어하기 위한 대체 입력 장치입니다.
+
+### Core Software & Platform
+
+<div>
+<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Linux.png" width="80" alt="Raspberry Pi OS">
+<img src="https://magicmirror.builders/img/logo.svg" width="80" alt="MagicMirror²">
+<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/NodeJS.png" width="80" alt="Node.js">
+<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Javascript.png" width="80" alt="JavaScript">
+</div>
+
+- **Raspberry Pi OS**: 안정적인 구동 환경을 제공하는 Debian 기반의 운영체제입니다.
+- **MagicMirror²**: 모듈형 구조를 가진 오픈소스 스마트 미러 플랫폼으로, 프로젝트의 애플리케이션 프레임워크 역할을 합니다.
+- **Node.js**: MagicMirror²의 런타임 환경으로, 서버 사이드 로직과 모듈 관리를 담당합니다.
+- **JavaScript (ES6)**: MagicMirror²의 모듈을 커스터마이징하고 개발하는 데 사용되는 주력 언어입니다.
+
+### Tools & Environment
+
+<div>
+<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Github.png" width="80" alt="Git & Github">
+<img src="https://i.imgur.com/2qs0qZt.png" width="80" alt="SSH">
+<img src="https://i.imgur.com/nLd2gM5.png" width="80" alt="NPM">
+</div>
+
+- **Git & Github**: 각종 모듈의 소스 코드를 클론하고 버전을 관리합니다.
+- **SSH (PuTTY)**: 원격으로 라즈베리파이에 접속하여 모든 개발 및 설정 작업을 수행합니다.
+- **NPM**: Node.js의 패키지 매니저로, 모듈 의존성 설치 및 스크립트 실행에 사용됩니다.
+- **PM2**: Node.js 애플리케이션(MagicMirror²)을 백그라운드에서 안정적으로 실행하고 관리하는 프로세스 매니저입니다.
+
+<br />
+
+## 🛠️ 프로젝트 아키텍쳐
+
+이 프로젝트는 물리적인 하드웨어 계층부터 외부 클라우드 서비스까지 연결되는 다층 구조(Layered Architecture)를 가집니다. 각 계층은 명확한 역할을 가지며 상호작용합니다.
+
+![no-image](https://user-images.githubusercontent.com/80824750/208294567-738dd273-e137-4bbf-8307-aff64258fe03.png)
+
+- **Layer 1: Hardware Layer**
+
+  - 라즈베리파이, 터치 디스플레이, 마이크/스피커, 센서 등 물리적 장치로 구성됩니다.
+  - 사용자의 입력(음성, 터치)을 감지하고, 처리된 결과를 시각적/청각적으로 출력합니다.
+
+- **Layer 2: System Layer**
+
+  - Raspberry Pi OS가 하드웨어를 제어하고, Node.js 런타임 환경을 제공합니다.
+  - PM2와 같은 프로세스 매니저가 애플리케이션의 안정적인 구동을 보장합니다.
+
+- **Layer 3: Application & Module Layer**
+
+  - MagicMirror² 플랫폼이 애플리케이션의 골격을 형성합니다.
+  - Calendar, Weather, News 등 다양한 **서드파티 모듈**이 `config.js` 설정 파일을 통해 플랫폼 위에서 동작하며 실제 기능을 구현합니다.
+  - **MMM-GoogleAssistant**와 같은 핵심 모듈은 다른 확장 모듈(유튜브, 구글 포토 등)을 제어하는 허브 역할을 수행합니다.
+
+- **Layer 4: External Service Layer**
+  - Google, OpenWeatherMap 등 외부 API 서버로 구성됩니다.
+  - 모듈은 이 계층과 HTTP 통신을 통해 날씨, 일정, 검색 결과 등의 데이터를 가져와 사용자에게 표시합니다.
+
+> **데이터 흐름 예시**: 사용자가 "오늘 날씨 알려줘"라고 말하면, `하드웨어 계층`(마이크)이 음성을 입력받아 `모듈 계층`(구글 어시스턴트)에 전달합니다. 모듈은 `외부 서비스 계층`(구글 API, 날씨 API)과 통신하여 데이터를 가져온 후, `애플리케이션 계층`을 통해 가공하여 `하드웨어 계층`(디스플레이/스피커)으로 최종 정보를 출력합니다.
+
+<br />
+
+## 🤔 기술적 이슈와 해결 과정
+
+프로젝트 진행 중 발생했던 주요 기술적 난관과 이를 해결하기 위한 접근 방식을 공유합니다.
+
+<br />
+
+## 💁‍♂️ 프로젝트 팀원
+
+|              Project Lead & Developer               |
+| :-------------------------------------------------: |
+| ![](https://github.com/your-github-id.png?size=120) |
+|   [Your Name](https://github.com/your-github-id)    |
