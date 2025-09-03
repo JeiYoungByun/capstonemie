@@ -1,8 +1,4 @@
-<div align="center">
-
-### DIY Smart Mirror Project ✅
-
-</div>
+# DIY Smart Mirror Project 
 
 ## 📝 소개
 
@@ -47,13 +43,6 @@
 
 ### Hardware
 
-<div>
-<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/RaspberryPi.png" width="80" alt="Raspberry Pi 4">
-<img src="https://i.imgur.com/OrsAyBC.png" width="80" alt="Touch Display">
-<img src="https://i.imgur.com/t33m0yE.png" width="80" alt="Microphone & Speaker">
-<img src="https://i.imgur.com/Y4o62tG.png" width="80" alt="Half Mirror">
-</div>
-
 - **Raspberry Pi 4**: 프로젝트의 핵심 컴퓨팅 모듈입니다. OS를 구동하고 모든 소프트웨어 로직을 처리합니다.
 - **10.1" Touch Display**: 사용자 인터페이스(UI)를 표시하고, 터치 입력을 통해 화면을 제어하는 역할을 합니다.
 - **USB Microphone & Speaker**: 구글 어시스턴트의 음성 입출력을 담당하는 핵심 주변 장치입니다.
@@ -62,25 +51,12 @@
 
 ### Core Software & Platform
 
-<div>
-<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Linux.png" width="80" alt="Raspberry Pi OS">
-<img src="https://magicmirror.builders/img/logo.svg" width="80" alt="MagicMirror²">
-<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/NodeJS.png" width="80" alt="Node.js">
-<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Javascript.png" width="80" alt="JavaScript">
-</div>
-
 - **Raspberry Pi OS**: 안정적인 구동 환경을 제공하는 Debian 기반의 운영체제입니다.
 - **MagicMirror²**: 모듈형 구조를 가진 오픈소스 스마트 미러 플랫폼으로, 프로젝트의 애플리케이션 프레임워크 역할을 합니다.
 - **Node.js**: MagicMirror²의 런타임 환경으로, 서버 사이드 로직과 모듈 관리를 담당합니다.
 - **JavaScript (ES6)**: MagicMirror²의 모듈을 커스터마이징하고 개발하는 데 사용되는 주력 언어입니다.
 
 ### Tools & Environment
-
-<div>
-<img src="https://raw.githubusercontent.com/yewon-Noh/readme-template/main/skills/Github.png" width="80" alt="Git & Github">
-<img src="https://www.google.com/imgres?q=putty%20logo&imgurl=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F7NdNE%2Fbtsph90Ftet%2FAAAAAAAAAAAAAAAAAAAAAPolX6zCriXKH-5f7OHeDYOy4VQkYczPgvm-vSHhieeA%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1756652399%26allow_ip%3D%26allow_referer%3D%26signature%3DzREhmFAteMHeM9OZ64Aukmm6A8A%253D&imgrefurl=https%3A%2F%2Fpinetreeday.tistory.com%2F227&docid=vUo9sPAuf08OmM&tbnid=4caK_V0t9EXDUM&vet=12ahUKEwjelY_11LuPAxXDYfUHHUvgAZkQM3oECBkQAA..i&w=920&h=742&hcb=2&ved=2ahUKEwjelY_11LuPAxXDYfUHHUvgAZkQM3oECBkQAA" width="80" alt="SSH">
-<img src="https://i.imgur.com/nLd2gM5.png" width="80" alt="NPM">
-</div>
 
 - **Git & Github**: 각종 모듈의 소스 코드를 클론하고 버전을 관리합니다.
 - **SSH (PuTTY)**: 원격으로 라즈베리파이에 접속하여 모든 개발 및 설정 작업을 수행합니다.
