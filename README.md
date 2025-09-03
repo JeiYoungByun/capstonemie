@@ -53,15 +53,15 @@
 
 - **Raspberry Pi OS**: 안정적인 구동 환경을 제공하는 Debian 기반의 운영체제입니다.
 - **MagicMirror²**: 모듈형 구조를 가진 오픈소스 스마트 미러 플랫폼으로, 프로젝트의 애플리케이션 프레임워크 역할을 합니다.
-- **Node.js**: MagicMirror²의 런타임 환경으로, 서버 사이드 로직과 모듈 관리를 담당합니다.
-- **JavaScript (ES6)**: MagicMirror²의 모듈을 커스터마이징하고 개발하는 데 사용되는 주력 언어입니다.
+- **Node.js**: MagicMirror의 런타임 환경으로, 서버 사이드 로직과 모듈 관리를 담당합니다.
+- **JavaScript (ES6)**: MagicMirror의 모듈을 커스터마이징하고 개발하는 데 사용되는 주력 언어입니다.
 
 ### Tools & Environment
 
 - **Git & Github**: 각종 모듈의 소스 코드를 클론하고 버전을 관리합니다.
 - **SSH (PuTTY)**: 원격으로 라즈베리파이에 접속하여 모든 개발 및 설정 작업을 수행합니다.
 - **NPM**: Node.js의 패키지 매니저로, 모듈 의존성 설치 및 스크립트 실행에 사용됩니다.
-- **PM2**: Node.js 애플리케이션(MagicMirror²)을 백그라운드에서 안정적으로 실행하고 관리하는 프로세스 매니저입니다.
+- **PM2**: Node.js 애플리케이션(MagicMirror)을 백그라운드에서 안정적으로 실행하고 관리하는 프로세스 매니저입니다.
 
 <br />
 
@@ -81,7 +81,7 @@
 
 - **Layer 3: Application & Module Layer**
 
-  - MagicMirror² 플랫폼이 애플리케이션의 골격을 형성합니다.
+  - MagicMirror 플랫폼이 애플리케이션의 골격을 형성합니다.
   - Calendar, Weather, News 등 다양한 **서드파티 모듈**이 `config.js` 설정 파일을 통해 플랫폼 위에서 동작하며 실제 기능을 구현합니다.
   - **MMM-GoogleAssistant**와 같은 핵심 모듈은 다른 확장 모듈(유튜브, 구글 포토 등)을 제어하는 허브 역할을 수행합니다.
 
