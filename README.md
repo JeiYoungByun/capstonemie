@@ -66,6 +66,7 @@
   - **역할**: 스마트 미러의 카메라로 사용자의 얼굴을 실시간 분석하여, 눈 깜빡임 빈도, 하품 감지 등을 통해 피로도를 측정하는 독자 개발 API입니다.
   - **개발 환경**: Python, OpenCV, MediaPipe
 
+### 기존 API
 - **[OpenWeatherMap API](https://openweathermap.org/api)**: 현재 날씨 및 예보 데이터를 가져오기 위해 사용됩니다.
 - **[Google Calendar API](https://developers.google.com/calendar/api)**: 개인 구글 캘린더의 일정을 연동하기 위해 사용됩니다.
 - **[Google Assistant API](https://developers.google.com/assistant/sdk)**: 음성 명령 인식 및 처리를 위해 사용됩니다.
