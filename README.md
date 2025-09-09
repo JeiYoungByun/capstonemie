@@ -1,6 +1,6 @@
 # Project Aura — 상황인지 기반 지능형 미러 (Edge AI)
 
-한 줄 피치: **온디바이스 패턴 학습**으로 **다음 행동을 예측**해 UI를 **사전 재배치/선로딩**하고, **역할·권한·상황 정책**으로 가족이 함께 쓰는 **공용 모드**를 안전하게 오케스트레이션하는 스마트 미러.
+**온디바이스 패턴 학습**으로 **다음 행동을 예측**해 UI를 **사전 재배치/선로딩**하고, **역할·권한·상황 정책**으로 가족이 함께 쓰는 **공용 모드**를 안전하게 오케스트레이션하는 스마트 미러.
 
 > Badges: `Edge-Only Inference` · `Privacy-First` · `MagicMirror² + Node` · `Python Pipeline` · `SQLite Local Logs` · `Generative Layout Engine`
 
