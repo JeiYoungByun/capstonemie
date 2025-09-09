@@ -23,8 +23,6 @@
 * [선행 대비 차별점](#선행-대비-차별점)
 * [시스템 아키텍처](#시스템-아키텍처) · [상태/세션 모델](#상태세션-모델) · [데이터 흐름](#데이터-흐름)
 * [핵심 기능 & 사용자 스토리](#핵심-기능--사용자-스토리)
-* [알고리즘/정책](#알고리즘정책) · [Pseudocode](#pseudocode)
-* [API 스펙](#api-스펙) · [DB 스키마](#db-스키마) · [설정 예시](#설정-예시)
 * [성능 목표](#성능-목표) · [QA/테스트 플랜](#qatest-플랜) · [측정 지표](#측정-지표)
 * [보안/프라이버시/윤리](#보안프라이버시윤리)
 * [설치/빌드/배포(라즈베리파이)](#설치빌드배포라즈베리파이) · [트러블슈팅](#트러블슈팅)
@@ -153,9 +151,9 @@
 
 ```mermaid
 flowchart LR
-  Cam[RGB/IR Camera] --> Py[Python Edge AI\n(Identify/Liveness, Prediction)]
+  Cam[RGB/IR Camera] --> Py[Python Edge AI<br/>(Identify/Liveness, Prediction)]
   Mic[Mic/Keyword] --> Py
-  Py <--WS--> Node[Node/MagicMirror² Modules]
+  Py <-->|WS| Node[Node/MagicMirror² Modules]
   Py <--> DB[(SQLite)]
   Node --> UI[Web UI Reflow]
   Cloud[(Calendar/Weather)] -->|Local Cache Sync| Node
@@ -203,150 +201,6 @@ stateDiagram-v2
 * **Fairness**: 급박도(캘린더 임박/알림 심각도), 사용시간 공정성, 사전 합의 규칙(아동 보호) **다목적 스코어**.
 * **Privacy**: 민감도 가중치·데이터 항목별 **전송 예산(ε)** 관리, 감사 로그.
 
-### Pseudocode
-
-```python
-def priority_score(widget, user, now):
-    r = recency_decay(last_interaction(widget, user), half_life=48*60)
-    tod = time_of_day_prior(widget, hour=now.hour, weekday=now.weekday())
-    slen = expected_session_length(user, now)            # [0..1]
-    intent = next_action_prob(widget, user, context(now))
-    hyst = hysteresis_bonus(widget)                      # continuity
-    return 0.35*r + 0.25*tod + 0.25*intent + 0.10*slen + 0.05*hyst
-
-def generate_layout(scores, prev_layout, limits):
-    theta = 0.12
-    placed = []
-    for w, s in sorted(scores.items(), key=lambda x: -x[1]):
-        if is_stable(prev_layout.get(w), s, theta):
-            placed.append(prev_layout[w]); continue
-        size = choose_size(w, s, limits)                 # xs/s/m/l
-        pos  = find_slot(size, placed)                   # shelf first-fit
-        placed.append(Card(w, pos, size, emphasis=emph(s)))
-    return placed
-
-def fairness_resolver(active_users, context):
-    return allocate_screen(active_users,
-                           objectives={'urgency':0.5,'fair_time':0.3,'policy':0.2},
-                           constraints={'kid_protect':True})
-```
-
----
-
-## API 스펙
-
-### REST (localhost/LAN, Bearer 토큰)
-
-* `POST /vision/identify` → `{ user_id?, liveness, conf }`
-* `POST /status/notify` → `{ event:"doorbell|presence|voice", payload }`
-* `GET /history/{user}/priority?window=7d`
-* `POST /layout/suggest` → `{ context }` → `{ grid:[], emphasis:[] }`
-* `GET /public/memo` / `POST /public/memo` / `DELETE /public/memo/{id}`
-* `GET /policy/roles` / `PUT /policy/roles`
-* `GET /health` → `{ fps, latency, model_load }`
-
-### WebSocket `/ws/aura`
-
-* `status.update {presence, user_id?, role, liveness}`
-* `priority.update [{widget, score, reason}]`
-* `layout.update {cards:[{id,row,col,w,h,emphasis}]}`
-* `resource.budget {cpu,gpu,mem_limits}`
-
----
-
-## DB 스키마
-
-```sql
-CREATE TABLE users (
-  user_id TEXT PRIMARY KEY,
-  display_name TEXT,
-  role TEXT CHECK(role IN ('owner','adult','teen','kid','guest')),
-  face_template BLOB,  -- encrypted
-  voiceprint BLOB,     -- encrypted
-  created_at INTEGER
-);
-
-CREATE TABLE sessions (
-  session_id TEXT PRIMARY KEY,
-  user_id TEXT,
-  started_at INTEGER,
-  ended_at INTEGER,
-  liveness_score REAL,
-  FOREIGN KEY(user_id) REFERENCES users(user_id)
-);
-
-CREATE TABLE interactions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  session_id TEXT, user_id TEXT,
-  widget TEXT, action TEXT, ts INTEGER, meta JSON
-);
-
-CREATE TABLE memos (
-  memo_id TEXT PRIMARY KEY,
-  author_user_id TEXT,
-  recipients JSON,
-  content TEXT,
-  voice_uri TEXT,
-  expires_at INTEGER,
-  created_at INTEGER,
-  visibility TEXT CHECK(visibility IN ('public','family','private')) DEFAULT 'family'
-);
-
-CREATE TABLE policies (key TEXT PRIMARY KEY, value JSON);
-
-CREATE TABLE priorities (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  user_id TEXT, widget TEXT, score REAL, reason TEXT, ts INTEGER
-);
-
-CREATE TABLE events (event_id TEXT PRIMARY KEY, type TEXT, payload JSON, ts INTEGER);
-
-CREATE INDEX idx_interactions_user_ts ON interactions(user_id, ts);
-CREATE INDEX idx_priorities_user_widget_ts ON priorities(user_id, widget, ts);
-```
-
----
-
-## 설정 예시
-
-```yaml
-system:
-  camera: rgb_ir
-  wake:
-    dim_after_sec: 20
-    off_after_sec: 60
-  idle:
-    show_badges: ["clock","weather.icon","memo.count"]
-
-privacy:
-  retention_days:
-    memo: 30
-    voice_raw: 7
-    visitor: 1
-  external_telemetry: "anonymous_aggregates_only"
-  guest_mask: ["personal.messages","payments","health"]
-
-policy:
-  roles:
-    owner: ["memo.summary","calendar.nownext","transit","doorbell.ticker"]
-    adult: ["memo.summary","calendar.nownext","weather","transit"]
-    teen:  ["memo.summary","school.events","transit","photo.reminder"]
-    kid:   ["memo.summary","chores.simple","photo.reminder"]
-    guest: ["guest.welcome","wifi.qr","intercom","doorbell.ticker"]
-  fairness:
-    urgency_weight: 0.5
-    fair_time_weight: 0.3
-    policy_weight: 0.2
-
-layout:
-  hysteresis_theta: 0.12
-  max_cards: 8
-  resource_budget:
-    cpu: 0.6
-    gpu: 0.6
-    mem_mb: 512
-```
-
 ---
 
 ## 성능 목표
@@ -390,74 +244,21 @@ layout:
 
 ### 1) OS & 패키지
 
-```bash
-sudo apt update && sudo apt install -y git python3-venv python3-opencv \
-  sqlite3 libsqlite3-dev cmake build-essential
-```
-
 ### 2) Node & MagicMirror²
-
-```bash
-# Node (LTS 권장)
-curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# MagicMirror²
-git clone https://github.com/MichMich/MagicMirror.git ~/MagicMirror
-cd ~/MagicMirror && npm install
-```
 
 ### 3) Aura Python 서비스
 
-```bash
-git clone <your-repo> ~/aura
-cd ~/aura/py && python3 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt   # onnxruntime, dlib(옵션), websockets 등
-```
-
 ### 4) SQLite 초기화
-
-```bash
-sqlite3 ~/aura/aura.db < schema.sql
-```
 
 ### 5) 환경 변수
 
-```bash
-export AURA_DB=~/aura/aura.db
-export AURA_WS=ws://localhost:8081/ws/aura
-export AURA_TOKEN=<random_bearer_token>
-```
-
 ### 6) MagicMirror² 모듈 연결
 
-* `config.js`에 **Aura 모듈** 추가: WS로 `layout.update`, `priority.update` 수신 → 카드 리플로우.
-
 ### 7) 서비스 등록(systemd 예시)
-
-```ini
-# /etc/systemd/system/aura.service
-[Service]
-ExecStart=/home/pi/aura/py/.venv/bin/python /home/pi/aura/py/server.py
-Environment=AURA_DB=/home/pi/aura/aura.db
-Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-```
-
-```bash
-sudo systemctl enable --now aura
-```
 
 ---
 
 ## 트러블슈팅
-
-* **카메라 인식 실패**: `/dev/video*` 권한, IR 케이블, framerate 15→10로 낮추기.
-* **liveness 오탐**: IR 게인/노출 자동화 해제, 광원 반사 줄이기.
-* **WS 끊김**: 포트 충돌 확인(8081), NTP 시간 동기화.
-* **발열/스로틀링**: 히트싱크/팬, 프레임레이트/모델 주기 줄이기.
-* **레이아웃 깜빡임**: `hysteresis_theta` ↑, 안정화 창(예: 10분) 도입.
 
 ---
 
