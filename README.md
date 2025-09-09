@@ -141,12 +141,13 @@
 
 ```mermaid
 flowchart LR
-  Cam[RGB/IR Camera] --> Py[Python Edge AI<br/>(Identify/Liveness, Prediction)]
-  Mic[Mic/Keyword] --> Py
-  Py <-->|WS| Node[Node/MagicMirror Modules]
+  Cam["RGB/IR Camera"] --> Py["Python Edge AI (Identify, Liveness, Prediction)"]
+  Mic["Mic / Keyword"] --> Py
+  Py <-->|WS| Node["Node (MagicMirror2 Modules)"]
   Py <--> DB[(SQLite)]
-  Node --> UI[Web UI Reflow]
-  Cloud[(Calendar/Weather)] -->|Local Cache Sync| Node
+  Node --> UI["Web UI Reflow"]
+  Cloud["Calendar / Weather"] -->|Local Cache Sync| Node
+
 ```
 
 ### 상태/세션 모델
