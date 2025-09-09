@@ -143,7 +143,7 @@
 flowchart LR
   Cam[RGB/IR Camera] --> Py[Python Edge AI<br/>(Identify/Liveness, Prediction)]
   Mic[Mic/Keyword] --> Py
-  Py <-->|WS| Node[Node/MagicMirror² Modules]
+  Py <-->|WS| Node[Node/MagicMirror Modules]
   Py <--> DB[(SQLite)]
   Node --> UI[Web UI Reflow]
   Cloud[(Calendar/Weather)] -->|Local Cache Sync| Node
