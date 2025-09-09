@@ -233,14 +233,22 @@ flowchart LR
 
 ```mermaid
 stateDiagram-v2
-  [*] --> PUBLIC_IDLE
-  PUBLIC_IDLE --> GUEST_MODE: Presence && unidentified
-  PUBLIC_IDLE --> USER_MODE: Presence && identified && liveness
-  USER_MODE --> PUBLIC_IDLE: Inactivity / Exit Gesture
-  GUEST_MODE --> PUBLIC_IDLE: Timeout / Visitor Leave
-  USER_MODE --> GUEST_MODE: Owner handoff to Visitor
-  note right of USER_MODE: Session Memory Graph\nPredictive Pre-Emption
-  note left of PUBLIC_IDLE: Guest-safe Ticker\n(doorbell, memo count)
+    [*] --> PUBLIC_IDLE
+
+    PUBLIC_IDLE --> USER_MODE: 식별된 성인 1명 감지
+    PUBLIC_IDLE --> GUEST_MODE: 미식별자 감지
+    PUBLIC_IDLE --> FAMILY_INTERACTION: 식별된 가족 2명 이상 감지
+    PUBLIC_IDLE --> CHILD_SAFETY: '아동' 역할 사용자 감지
+
+    USER_MODE --> PUBLIC_IDLE: 30초 이상 부재
+    GUEST_MODE --> PUBLIC_IDLE: 부재
+    FAMILY_INTERACTION --> PUBLIC_IDLE: 부재
+    CHILD_SAFETY --> PUBLIC_IDLE: 부재
+
+    USER_MODE --> FAMILY_INTERACTION: 다른 가족 등장
+    FAMILY_INTERACTION --> USER_MODE: 1명 제외 모두 퇴장
+
+    note "ALERT_MODE는 모든 상태에서<br/>진입 가능한 최우선 상태<br/>(예: 스마트 초인종 알림)" as AlertNote
 ```
 
 ### 데이터 흐름
